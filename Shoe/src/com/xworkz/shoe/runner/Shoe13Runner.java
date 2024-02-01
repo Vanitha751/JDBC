@@ -11,8 +11,8 @@ public class Shoe13Runner {
 	public static void main(String[] args) {
 		try(Connection connection=DriverManager.getConnection
 				(ShoeData.URL.getValue(),
-				ShoeData.PASSWORD.getValue(),
-				ShoeData.USERNAME.getValue());
+				ShoeData.USERNAME.getValue(),
+				ShoeData.PASSWORD.getValue());
 				Statement statement=connection.createStatement()){
 				System.out.println("class is connected");
 				String query="insert into shoe_details values(2,'heals','good')";
