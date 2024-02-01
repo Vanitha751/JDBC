@@ -26,5 +26,4 @@ public class Shoe10Runner {
 			exception.printStackTrace();
 		}
 	}
-		}
 }
