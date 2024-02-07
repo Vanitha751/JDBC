@@ -1,0 +1,121 @@
+1.JDBC:-
+--------
+* Jdbc is a java database connectivity 
+* Jdbc is an Api.It is used to connect and execute queries in database.
+________________________________________________________________________________________________________________________________________________
+
+2.STEPS:-
+--------
+* Loads the jarfiles
+* Create a Connection
+* Create a Statement And Processing the statement
+* Execute the Statement
+* Handling the exception
+* Close the connection
+________________________________________________________________________________________________________________________________________________
+
+3.There are 3 types of statements
+  ->Statement
+  ->Prepared Statement
+  ->Callable Statement
+
+1->Statement:
+     It will compile multiple times and execute multiple times
+
+   Syntax:- Statement statement=connection.executestatement();
+
+2->Prepared Statement
+
+    It will compile only one time and execute n number of times
+
+  Syntax:-PreparedStatement preparedStatement=connection.prepareStatement(query);
+_______________________________________________________________________________________________________________________________________________
+
+4.
+package com.xworkz.jdbc.runner;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class Question3 {
+
+	public static void main(String[] args) throws Exception{
+		
+		Class.forName("com.mysql.cj.jdbc.Question3");
+		
+		Connection con=	DriverManager.getConnection("jdbc:mqsql://loacalhost:3306/jdbc", "root", "X-workzodc@123");
+		
+		if(con!=null) {
+			System.out.println("connection is ok");
+			con.close();
+		}else {
+			System.out.println("connection is not ok");
+		}
+
+	}
+
+}
+________________________________________________________________________________________________________________________________________________
+
+5.
+public class JdbcDelete{
+
+public static void main(String[] args) {
+
+String query="DELETE FROM jdbc_table WHERE userName=?";
+
+try(Connection con=DriverManager.getConnection("jdbc:mqsql://loacalhost:3306/jdbc", "root", "X-workzodc@123");
+      PreparedStatement preparedStatement=connection.prepareStatement(query)){
+
+    preparedStatement.setString(1,"value_1");
+    preparedStatement.executeUpdate();
+
+}catch(SQLException exception){
+ exception.printStackTrace();
+}
+}
+
+}
+________________________________________________________________________________________________________________________________________________
+
+  package com.xworkz.product.driver;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.xworkz.product.constant.ConnectData;
+
+public class Product {
+
+	public static void main(String[] args) {
+		
+		String query="INSERT INTO product_table(S.no,product_name,product_price,employee_salary,department)VALUES(?,?,?,?,?)";
+		
+		try(Connection connection=DriverManager.getConnection(ConnectData.URL.getData(), ConnectData.USERNAME.getData(), 
+	        ConnectData.PASSWORD.getData());
+		    PreparedStatement preparedStatement=connection.prepareStatement(query)){
+			 System.out.println("connected successfully");
+			preparedStatement.setInt(1, 1);
+			preparedStatement.setString(2, "bag");
+			preparedStatement.setInt(3,100);
+			preparedStatement.setInt(4,50000);
+			preparedStatement.setString(5,"Non-IT");
+			preparedStatement.addBatch();
+			
+			preparedStatement.setInt(1, 2);
+			preparedStatement.setString(2, "abc");
+			preparedStatement.setInt(3,200);
+			preparedStatement.setInt(4,5000);
+			preparedStatement.setString(5,"IT");
+			preparedStatement.addBatch();
+			
+	        preparedStatement.executeBatch();
+	        
+		}catch(SQLException exception) {
+			exception.printStackTrace();
+		}
+	}
+
+}
+
