@@ -41,7 +41,7 @@ public class Question3 {
 
 	public static void main(String[] args) throws Exception{
 		
-		Class.forName("com.mysql.cj.jdbc.Question3");
+		Class.forName("com.mysql.cj.jdbc.Driver");
 		
 		Connection con=	DriverManager.getConnection("jdbc:mqsql://loacalhost:3306/jdbc", "root", "X-workzodc@123");
 		
